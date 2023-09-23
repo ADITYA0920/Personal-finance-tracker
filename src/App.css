@@ -3,12 +3,24 @@
 body{
   font-family: 'Montserrat', sans-serif;
 }
-.wrapper,.charts-wrapper{
+.wrapper{
   display: flex;
+  flex-direction: row !important;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 90vh;
+  overflow-x: auto;
+}
+.charts-wrapper{
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+  border: 2px solid red;
+  overflow-x: auto;
 }
 .charts-wrapper{
   justify-content: space-between;

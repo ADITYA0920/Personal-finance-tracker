@@ -1,6 +1,5 @@
 import React from 'react'
 import { Line, Pie } from '@ant-design/charts';
-import { Transaction } from 'firebase/firestore';
 const ChartComp = ({sortedTransactions}) => {
 
     // const data = [
@@ -50,7 +49,7 @@ const ChartComp = ({sortedTransactions}) => {
     });
       const config = {
         data:data,
-        width: 400,
+        width: 500,
         height: 400,
         autoFit: false,
         xField: 'date',
@@ -59,11 +58,11 @@ const ChartComp = ({sortedTransactions}) => {
           size: 5,
           shape: 'diamond',
         },
-        label: {
-          style: {
-            fill: '#aaa',
-          },
-        },
+        // label: {
+        //   style: {
+        //     fill: '#aaa',
+        //   },
+        // },
       };
 
       const spendingconfig = {

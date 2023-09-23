@@ -25,6 +25,7 @@ const SignUpSignIn = () => {
       //
       setLoading(true) ;
       if(name !== "" && email !== "" && password !=="" && consfirmPassword !=="" ){
+        if(password === consfirmPassword){
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in 
@@ -43,6 +44,10 @@ const SignUpSignIn = () => {
           setLoading(false) ;
           // ..
         }); 
+      }
+      else{
+        toast.error("passwords are not matching");
+      }
       }
       else{
         toast.error("all fields are mandtory") ;
@@ -153,25 +158,25 @@ const SignUpSignIn = () => {
           type={"text"}
            state = {name} 
            setState = {setName} 
-           placeholder={"Enter Name"} />
+           placeholder={"John Mosh"} />
 
           <Input lable={"Email"}
           type={"email"}
            state = {email} 
            setState = {setEmail} 
-           placeholder={"Enter Email"} />
+           placeholder={"Josh@gmail.com"} />
 
           <Input lable={"Password"}
           type={"password"}
            state = {password} 
            setState = {setPassword} 
-           placeholder={"Enter Password"} />
+           placeholder={"Pass@123"} />
 
           <Input lable={"confirm password"}
           type={"password"}
            state = {consfirmPassword} 
            setState = {setConfirmPassword} 
-           placeholder={"Enter Confirm Password"} />
+           placeholder={"Pass@123"} />
 
           <Button disabel={loading} 
           text={loading ? "loading..." : "signUp using email and password"} 

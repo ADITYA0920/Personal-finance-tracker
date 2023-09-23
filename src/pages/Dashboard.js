@@ -59,21 +59,8 @@ const Dashboard = () => {
   const calculateBalance = () => {
     let incomeTotal = 0;
     let expensesTotal = 0;
-    // setLoading(true) ;
+
     transactions.forEach((transaction) => {
-      console.log(transaction) ;
-      if (transaction.type === "income") {
-        incomeTotal += transaction.amount;
-      } else {
-        expensesTotal += transaction.amount;
-      }
-    });
-  const calculateBalance = () => {
-    let incomeTotal = 0;
-    let expensesTotal = 0;
-    setLoading(true) ;
-    transactions.forEach((transaction) => {
-      console.log(transaction) ;
       if (transaction.type === "income") {
         incomeTotal += transaction.amount;
       } else {
@@ -81,18 +68,14 @@ const Dashboard = () => {
       }
     });
 
-    setLoading(false)
-    console.log(incomeTotal,expensesTotal)
+    
+    console.log("from calcute",transactions,incomeTotal,expensesTotal);
     setIncome(incomeTotal);
     setExpense(expensesTotal);
     setTotal(incomeTotal - expensesTotal);
+    
   };
-    // setLoading(false)
-    console.log(incomeTotal,expensesTotal)
-    setIncome(incomeTotal);
-    setExpense(expensesTotal);
-    setTotal(incomeTotal - expensesTotal);
-  };
+
 
   async function addTransaction(transaction) {
     try {
@@ -118,33 +101,32 @@ const Dashboard = () => {
 
 
 
-  function addStyling(){
+  // function addStyling(){
 
-    const rows = document.querySelectorAll('.ant-table-row');
+  //   const rows = document.querySelectorAll('.ant-table-row');
 
-        rows.forEach(row => {
-            // Find the cell with income or expense content (adjust this part based on your actual table structure)
-            const cells = row.querySelectorAll('.ant-table-cell');
-            cells.forEach(cell => {
-                if (cell.textContent.includes('income')) {
-                    cell.classList.add('income');
-                } else if (cell.textContent.includes('expense')) {
-                    cell.classList.add('expense');
-                }
-            });
-        });
+  //       rows.forEach(row => {
+  //           // Find the cell with income or expense content (adjust this part based on your actual table structure)
+  //           const cells = row.querySelectorAll('.ant-table-cell');
+  //           cells.forEach(cell => {
+  //               if (cell.textContent.includes('income')) {
+  //                   cell.classList.add('income');
+  //               } else if (cell.textContent.includes('expense')) {
+  //                   cell.classList.add('expense');
+  //               }
+  //           });
+  //       });
 
-  }
+  // }
   useEffect(()=>{
     //get all docs of transactions
     fetchTransactions();
-    calculateBalance();
-    if(user){
-      addStyling() ;
-    }
+
   },[user]) ;
 
-  
+  useEffect(()=>{
+    calculateBalance();
+  },[transactions])
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
@@ -155,11 +137,13 @@ const Dashboard = () => {
         // doc.data() is never undefined for query doc snapshots
         transactionsArray.push(doc.data());
       });
-      calculateBalance();
+      console.log("inside fetdata1",transactionsArray);
       setTransactions(transactionsArray);
-      console.log(transactionsArray) ;
+      console.log("inside fetdata2",transactions) ;
+
       toast.success("Transactions Fetched!");
     }
+  
     setLoading(false);
   }
 
