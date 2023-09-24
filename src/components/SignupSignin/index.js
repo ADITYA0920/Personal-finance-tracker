@@ -85,6 +85,7 @@ const SignUpSignIn = () => {
       }
     catch(e){
       toast.error(e.message) ; 
+      toast.error("googleSign up is not working with deployed link but its working when we run code vie our machine")
       setLoading(false) ;
     }
 

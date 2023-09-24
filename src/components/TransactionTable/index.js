@@ -4,7 +4,7 @@ import { parse, unparse } from 'papaparse';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 
-const TransactionTable = ({transactions}) => {
+const TransactionTable = ({transactions,addTransaction,fetchTransactions}) => {
     console.log("inside transaction",transactions) ;
     const[search,setSearch] = useState("") ;
     const[sortKey,setSortKey] = useState("") ;
@@ -58,19 +58,19 @@ const TransactionTable = ({transactions}) => {
             complete: async function (results) {
               // Now results.data is an array of objects representing your CSV rows
               console.log(results.data) ;
-              // for (const transaction of results.data) {
-              //   // Write each transaction to Firebase, you can use the addTransaction function here
-              //   console.log("Transactions", transaction);
-              //   const newTransaction = {
-              //     ...transaction,
-              //     amount: parseInt(transaction.amount),
-              //   };
-              //   await addTransaction(newTransaction, true);
-              // }
+              for (const transaction of results.data) {
+                // Write each transaction to Firebase, you can use the addTransaction function here
+                console.log("Transactions", transaction);
+                const newTransaction = {
+                  ...transaction,
+                  amount: parseInt(transaction.amount),
+                };
+                await addTransaction(newTransaction, true);
+              }
             },
           });
           // toast.success("All Transactions Added");
-          // fetchTransactions();
+           fetchTransactions();
           event.target.files = null;
         } catch (e) {
           toast.error(e.message);

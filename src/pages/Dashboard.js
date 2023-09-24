@@ -127,6 +127,7 @@ const Dashboard = () => {
   useEffect(()=>{
     calculateBalance();
   },[transactions])
+  
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
