@@ -32,6 +32,7 @@ const Header = () => {
     {
       user &&  
       <div style = {{display : 'flex' , alignItems : "center" , gap : "0.5rem"}}>
+        <p style={{color : "white", fontSize : "1rem"}}>Welcome Back , {user.displayName}</p>
         <img src={user.photoURL ? user.photoURL : "" }
         style = {{borderRadius : "50%" , height : "2rem" , width : "2rem"}}
          />

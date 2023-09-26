@@ -56,6 +56,7 @@ const SignUpSignIn = () => {
     }
     function googleAuth(){
       setLoading(true) ;
+      toast.error("googleSign up is not working with deployed link but its working when we clone the repo and run via pc")
       try{
         signInWithPopup(auth, provider)
         .then((result) => {
@@ -85,7 +86,6 @@ const SignUpSignIn = () => {
       }
     catch(e){
       toast.error(e.message) ; 
-      toast.error("googleSign up is not working with deployed link but its working when we run code vie our machine")
       setLoading(false) ;
     }
 

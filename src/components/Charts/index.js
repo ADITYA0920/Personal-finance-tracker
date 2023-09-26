@@ -35,6 +35,7 @@ const ChartComp = ({sortedTransactions}) => {
       {tag:"food",amount : 0},
       {tag:"education",amount : 0},
       {tag:"office",amount : 0},
+      {tag:"others",amount : 0}
     ]
     spendingData.forEach(element => {
       if(element.tag == "food"){
@@ -43,13 +44,16 @@ const ChartComp = ({sortedTransactions}) => {
       else if(element.tag == "education"){
         spendings[1].amount += element.amount ;
       }
-      else{
-        spendings[2].amount += element.amount ;
+      else if(element.tag == "office"){
+        spendings[2].amount += element.office ;
       }
+      // else{
+      //   spendingData[3].amount += element.others ;
+      // }
     });
       const config = {
         data:data,
-        width: 500,
+        width: 800,
         height: 400,
         autoFit: false,
         xField: 'date',
@@ -78,8 +82,8 @@ const ChartComp = ({sortedTransactions}) => {
   return (
     <div className="charts-wrapper">
         
-        <div>
-          <h2>YOUR ANALYTICS</h2>
+        <div className='line-graph'>
+          <h2 >YOUR ANALYTICS</h2>
             <Line {...config} 
             onReady={(chartInstance) => (chart = chartInstance)}
             />

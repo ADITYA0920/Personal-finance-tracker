@@ -31,6 +31,11 @@ body{
   box-shadow: var(--shadow);
   margin: 2rem;
 }
+.line-graph{
+  
+  min-width: 70%;
+  /* border: 2px solid green; */
+}
 
 .input-wrapper input,
 .custom-input {

@@ -45,7 +45,11 @@ const TransactionTable = ({transactions,addTransaction,fetchTransactions}) => {
           return new Date(a.date) - new Date(b.date);
         } else if (sortKey === "amount") {
           return a.amount - b.amount;
-        } else {
+        } 
+        else if(sortKey === "daterev"){
+          return new Date(b.date) - new Date(a.date);
+        }
+        else {
           return 0;
         }
       });
@@ -61,6 +65,7 @@ const TransactionTable = ({transactions,addTransaction,fetchTransactions}) => {
               for (const transaction of results.data) {
                 // Write each transaction to Firebase, you can use the addTransaction function here
                 console.log("Transactions", transaction);
+                // addTransaction(transaction) ;
                 const newTransaction = {
                   ...transaction,
                   amount: parseInt(transaction.amount),
@@ -150,7 +155,8 @@ const TransactionTable = ({transactions,addTransaction,fetchTransactions}) => {
             value={sortKey}
           >
             <Radio.Button value="">No Sort</Radio.Button>
-            <Radio.Button value="date">Sort by Date</Radio.Button>
+            <Radio.Button value="date">Sort by Date incr</Radio.Button>
+            <Radio.Button value="daterev">Sort by Date decr</Radio.Button>
             <Radio.Button value="amount">Sort by Amount</Radio.Button>
           </Radio.Group>
           <div

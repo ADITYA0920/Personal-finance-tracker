@@ -18,7 +18,7 @@ function AddExpenseModal({
   const [form] = Form.useForm();
   return (
     <Modal
-      style={{ fontWeight: 600 }}
+      style={{ fontWeight: 600}}
       title="Add Expense"
       visible={isExpenseModalVisible}
       onCancel={handleExpenseCancel}
@@ -75,6 +75,7 @@ function AddExpenseModal({
             <Select.Option value="food">Food</Select.Option>
             <Select.Option value="education">Education</Select.Option>
             <Select.Option value="office">Office</Select.Option>
+            <Select.Option value="others">Others</Select.Option>
             {/* Add more tags here */}
           </Select>
         </Form.Item>

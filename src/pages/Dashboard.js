@@ -8,7 +8,7 @@ import AddIncomeModal from '../components/Modals/addIncome';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 // import { moment } from 'moment';
-import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import moment from 'moment/moment';
 import TransactionTable from '../components/TransactionTable';
@@ -127,7 +127,12 @@ const Dashboard = () => {
   useEffect(()=>{
     calculateBalance();
   },[transactions])
-  
+  async function deleteData(){
+    console.log("calling")
+    await deleteDoc(doc(db, "users")); ;
+    console.log("data wapped")
+    fetchTransactions();
+  }
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
@@ -147,6 +152,23 @@ const Dashboard = () => {
   
     setLoading(false);
   }
+  async function deleteAllTransactions() {
+    let userId = user.uid ;
+    console.log(userId) ;
+    toast.success(userId) ;
+    console.log("calling deleteAll") ;
+    try {
+      const transactionQuerySnapshot = await db.collection("users").doc(userId).collection("transactions").get();
+      
+      transactionQuerySnapshot.forEach(async (doc) => {
+        await doc.ref.delete();
+      });
+      fetchTransactions();
+      console.log("All transactions deleted successfully");
+    } catch (error) {
+      console.error("Error deleting transactions:", error);
+    }
+  }
 
   let sortedTransactions = transactions.sort((a,b)=>{
     return new Date(a.date) - new Date(b.date) ;
@@ -161,6 +183,7 @@ const Dashboard = () => {
       <Cards
       showExpenseModal={showExpenseModal}
       showIncomeModal={showIncomeModal}
+      deleteData = {deleteAllTransactions} 
       income = {income}
       expense= {expense}
       total={total}

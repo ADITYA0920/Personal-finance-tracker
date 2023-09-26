@@ -85,6 +85,10 @@ input{
   box-shadow: var(--shadow);
   margin: 2rem;
 }
+.line-graph{
+  min-width: 70%;
+  /* border: 2px solid green; */
+}
 
 .select-input {
   width: 30%;
