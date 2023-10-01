@@ -9,6 +9,39 @@
     border-radius: 0.5rem;
     padding: 0rem 0.5rem;
   }
+  /* .ant-table-row-level-0{
+    transition: 0.3s;
+  }
+  .ant-table-row-level-0:hover{
+    cursor: pointer;
+    transform: scale(1.1) ;
+    z-index: 501;
+  } */
+
+  .ant-table-tbody tr.ant-table-row.ant-table-row-level-0:hover {
+    background-color: orange; /* Change the background color on hover */
+    /* Add any other styles you want */
+  }
+.deleteBtn img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.hover-effect {
+  font-size: 18px;
+}
+.ant-table-tbody .ant-table-row{
+  transition: 0.3s;
+}
+.ant-table-tbody .ant-table-row:hover{
+  cursor: pointer;
+}
+.ant-table-tbody tr:hover{
+  transition: 0.3s;
+  cursor: pointer;
+  transform: scale(1.1);
+  z-index: 501;
+}
  /*  
   .input-flex input {
     width: 90%;

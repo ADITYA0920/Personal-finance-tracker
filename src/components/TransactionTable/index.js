@@ -1,14 +1,47 @@
 import { Radio, Select, Table } from 'antd';
 import { Option } from 'antd/es/mentions';
 import { parse, unparse } from 'papaparse';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-
+import deleteImg from "../../assets/deleteImg.png"
+import searchImg from "../../assets/searchImg.svg"
 const TransactionTable = ({transactions,addTransaction,fetchTransactions}) => {
     console.log("inside transaction",transactions) ;
     const[search,setSearch] = useState("") ;
     const[sortKey,setSortKey] = useState("") ;
     const[typeFilter,setTypeFilter] = useState("") ;
+
+
+    function getData(){
+      const rows = document.querySelectorAll('.ant-table-tbody tr');
+
+      // Add event listeners for mouseover and mouseout
+      rows.forEach((row) => {
+        row.style.color = "black" ;
+
+      let btn = document.createElement('button') ;
+      btn.className = "deleteBtn"
+      btn.innerHTML = `
+        <img 
+        src=${deleteImg}/>
+      `
+      row.appendChild(btn) ;
+
+        row.addEventListener('mouseover', () => {
+          row.style.color = "red" ;
+          row.classList.add('hover-effect'); // Apply hover effect
+        });
+  
+        row.addEventListener('mouseout', () => {
+          row.style.color = "black" ;
+          row.classList.remove('hover-effect'); // Remove hover effect
+        });
+        
+      });
+    }
+    useEffect(()=>{
+      getData();
+    },[transactions])
 
     const columns = [
         {
@@ -117,7 +150,7 @@ const TransactionTable = ({transactions,addTransaction,fetchTransactions}) => {
        }}
      >
        <div className="input-flex">
-          <img src={search} width="16" /> 
+          <img src={searchImg} width="16" /> 
           <input
             value={search}
             placeholder="Search by Name"

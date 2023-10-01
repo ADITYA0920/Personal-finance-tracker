@@ -31,6 +31,9 @@ body{
   box-shadow: var(--shadow);
   margin: 2rem;
 }
+.hover-effect{
+  cursor: pointer;
+}
 .line-graph{
   
   min-width: 70%;

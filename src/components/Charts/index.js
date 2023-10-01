@@ -1,6 +1,6 @@
 import React from 'react'
 import { Line, Pie } from '@ant-design/charts';
-const ChartComp = ({sortedTransactions}) => {
+const ChartComp = ({sortedTransactions , sortedTransactionsrev}) => {
 
     // const data = [
     //     { year: '1991', value: 3 },
@@ -35,18 +35,21 @@ const ChartComp = ({sortedTransactions}) => {
       {tag:"food",amount : 0},
       {tag:"education",amount : 0},
       {tag:"office",amount : 0},
-      {tag:"others",amount : 0}
+      // {tag:"others",amount : 0}
     ]
     spendingData.forEach(element => {
-      if(element.tag == "food"){
+      if(element.tag === "food"){
         spendings[0].amount += element.amount ;
       }
-      else if(element.tag == "education"){
+      else if(element.tag === "education"){
         spendings[1].amount += element.amount ;
       }
-      else if(element.tag == "office"){
+      else{
         spendings[2].amount += element.office ;
       }
+      // else if(element.tag == "office"){
+      //   spendings[2].amount += element.office ;
+      // }
       // else{
       //   spendingData[3].amount += element.others ;
       // }

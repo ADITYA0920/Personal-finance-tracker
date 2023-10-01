@@ -89,6 +89,9 @@ input{
   min-width: 70%;
   /* border: 2px solid green; */
 }
+.hover-effect{
+  cursor: pointer;
+}
 
 .select-input {
   width: 30%;

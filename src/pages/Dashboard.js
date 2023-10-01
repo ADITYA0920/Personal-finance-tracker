@@ -20,6 +20,7 @@ const Dashboard = () => {
   const[total,setTotal] = useState(0) ;
 
   const[user] = useAuthState(auth);
+
   const[loading,setLoading] = useState(false) ;
   const[transactions,setTransactions] = useState([]) ;
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
@@ -121,18 +122,20 @@ const Dashboard = () => {
   useEffect(()=>{
     //get all docs of transactions
     fetchTransactions();
-
   },[user]) ;
 
   useEffect(()=>{
     calculateBalance();
   },[transactions])
+
+
   async function deleteData(){
     console.log("calling")
     await deleteDoc(doc(db, "users")); ;
     console.log("data wapped")
     fetchTransactions();
   }
+
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
@@ -152,6 +155,9 @@ const Dashboard = () => {
   
     setLoading(false);
   }
+
+
+
   async function deleteAllTransactions() {
     let userId = user.uid ;
     console.log(userId) ;
@@ -159,7 +165,6 @@ const Dashboard = () => {
     console.log("calling deleteAll") ;
     try {
       const transactionQuerySnapshot = await db.collection("users").doc(userId).collection("transactions").get();
-      
       transactionQuerySnapshot.forEach(async (doc) => {
         await doc.ref.delete();
       });
@@ -170,15 +175,20 @@ const Dashboard = () => {
     }
   }
 
+
+
   let sortedTransactions = transactions.sort((a,b)=>{
     return new Date(a.date) - new Date(b.date) ;
+  })
+  let sortedTransactionsrev = transactions.sort((a,b)=>{
+    return new Date(b.date) - new Date(a.date) ;
   })
 
   return (
     <div>
       <Header/>
       {
-      loading ? <p>loading</p> :
+      loading ? <p>loading...</p> :
       <>
       <Cards
       showExpenseModal={showExpenseModal}
@@ -188,7 +198,8 @@ const Dashboard = () => {
       expense= {expense}
       total={total}
       />
-      {transactions && transactions.length > 0 ? <ChartComp sortedTransactions = {sortedTransactions}/> : <Notransactions/>}
+      {transactions && transactions.length > 0 ? <ChartComp sortedTransactions = {sortedTransactions} 
+      sortedTransactionsrev = {sortedTransactionsrev} /> : <Notransactions/>}
         <AddExpenseModal
             isExpenseModalVisible={isExpenseModalVisible}
             handleExpenseCancel={handleExpenseCancel}
@@ -199,7 +210,10 @@ const Dashboard = () => {
             handleIncomeCancel={handleIncomeCancel}
             onFinish={onFinish}
           />
-          <TransactionTable transactions={transactions} addTransaction={addTransaction} fetchTransactions = {fetchTransactions}/>
+          <TransactionTable transactions={transactions} 
+          sortedTransactionsrev = {sortedTransactionsrev}
+          addTransaction={addTransaction} 
+          fetchTransactions = {fetchTransactions}/>
       </>
     }
     </div>
